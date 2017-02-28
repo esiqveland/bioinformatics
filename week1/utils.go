@@ -58,3 +58,20 @@ func Maximum(numbers []int) int {
 	}
 	return max
 }
+
+func Minimum(numbers []int) (positions []int, val int) {
+	min := numbers[0]
+
+	pos := make([]int, 0, 5)
+	for idx := range numbers {
+		if numbers[idx] < min {
+			min = numbers[idx]
+		}
+	}
+	for idx := range numbers {
+		if numbers[idx] == min {
+			pos = append(pos, idx)
+		}
+	}
+	return pos, min
+}

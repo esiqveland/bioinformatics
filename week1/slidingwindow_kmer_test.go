@@ -66,7 +66,7 @@ func TestMovingWindowFrequentWords_e_coli(t *testing.T) {
 
 	fmt.Printf("E_coli results: %v\n", len(results))
 	assert.Equal(t, 1904, len(results))
-	fmt.Printf("MovingWindowFrequentWords(dna, 11, 566, 18): %+v\n", results)
+	//fmt.Printf("MovingWindowFrequentWords(dna, 11, 566, 18): %+v\n", results)
 }
 
 func TestFasterFrequentWords(t *testing.T) {

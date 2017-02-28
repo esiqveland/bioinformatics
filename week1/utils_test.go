@@ -39,7 +39,7 @@ func TestIndexToPatternStr(t *testing.T) {
 	assert.Equal(t, "CCG", IndexToPatternStr(3, 22))
 	assert.Equal(t, "CCCATTC", IndexToPatternStr(7, 5437))
 	assert.Equal(t, "ACCCATTC", IndexToPatternStr(8, 5437))
-	assert.Equal(t, "ACCCATTC", IndexToPatternStr(11, 7556))
+	assert.Equal(t, "AAAACTCGACA", IndexToPatternStr(11, 7556))
 }
 
 func TestPatternToIndex(t *testing.T) {
