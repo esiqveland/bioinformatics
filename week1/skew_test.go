@@ -4,8 +4,22 @@ import (
 	"io/ioutil"
 	"testing"
 
+	"fmt"
+
 	"github.com/stretchr/testify/assert"
 )
+
+func TestMinSkew(t *testing.T) {
+	pos, val := MinSkew(NormalizeDNA("TAAAGACTGCCGAGAGGCCAACACGAGTGCTAGAACGAGGGGCGTAAACGCGGGTCCGAT"))
+
+	assert.Equal(t, []int{11, 24}, pos)
+	assert.Equal(t, -1, val)
+
+	pos, val = MinSkew(NormalizeDNA("CATTCCAGTACTTCGATGATGGCGTGAAGA"))
+
+	assert.Equal(t, []int{14}, pos)
+	assert.Equal(t, -4, val)
+}
 
 func TestSkewStr(t *testing.T) {
 	assert.Equal(t,
@@ -29,6 +43,12 @@ func TestSkewStr(t *testing.T) {
 	positions, value = Minimum(skewData)
 	assert.Equal(t, []int{47170, 47171}, positions)
 	assert.Equal(t, -313, value)
+
+	skewData = SkewStr("CATTCCAGTACTTCGATGATGGCGTGAAGA")
+	fmt.Printf("%+v \n", data)
+	pos, val := Minimum(skewData)
+	fmt.Printf("pos %+v  val: %+v\n", pos, val)
+
 }
 
 func TestSkewPlot(t *testing.T) {

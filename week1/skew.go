@@ -27,6 +27,10 @@ func Skew(dna []byte) []int {
 	return skew
 }
 
+func MinSkew(dna []byte) (positions []int, value int) {
+	return Minimum(Skew(dna))
+}
+
 func SkewPlot(title, filename, dna string) ([]int, error) {
 	start := time.Now()
 	skewData := SkewStr(dna)
