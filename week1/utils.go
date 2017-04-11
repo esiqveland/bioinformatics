@@ -1,5 +1,45 @@
 package main
 
+import (
+	"errors"
+	"io/ioutil"
+	"strings"
+)
+
+type Fasta struct {
+	genome    string
+	rawHeader string
+}
+
+func (f *Fasta) Raw() string {
+	return f.rawHeader
+}
+func (f *Fasta) Genome() string {
+	return f.genome
+}
+
+func ReadFasta(filename string) (Fasta, error) {
+	data, err := ioutil.ReadFile(filename)
+	if err != nil {
+		return Fasta{}, err
+	}
+	fasta := Fasta{}
+
+	strData := string(data)
+	idx := strings.Index(strData, "\n")
+	if idx == -1 {
+		return fasta, errors.New("no newlines in file.")
+	}
+	fasta.rawHeader = strData[:idx]
+
+	rest := strData[idx:]
+
+	fasta.genome = strings.Replace(fasta.genome, "\r\n", "", -1)
+	fasta.genome = strings.Replace(rest, "\n", "", -1)
+
+	return fasta, nil
+}
+
 // Integer power: compute a**b using binary powering algorithm
 // See Donald Knuth, The Art of Computer Programming, Volume 2, Section 4.6.3
 func PowInt(a, b int) int {

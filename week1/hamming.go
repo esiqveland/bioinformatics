@@ -45,23 +45,13 @@ type sequence []byte
 
 type sequences []sequence
 
-func (s sequences) Denormalize() []string {
+func (s sequences) DeNormalize() []string {
 	result := make([]string, 0, len(s))
 	for i, _ := range s {
 		result = append(result, DeNormalizeDNA(s[i]))
 	}
 	return result
 }
-
-/*
- *    IterativeNeighbors(Pattern, d)
-        Neighborhood ← set consisting of single string Pattern
-        for j = 1 to d
-            for each string Pattern’ in Neighborhood
-                add ImmediateNeighbors(Pattern') to Neighborhood
-                remove duplicates from Neighborhood
-        return Neighborhood
-*/
 
 func IterativeNeighbors(pattern sequence, d int) []sequence {
 	neighborhood := map[string]sequence{
@@ -71,6 +61,7 @@ func IterativeNeighbors(pattern sequence, d int) []sequence {
 
 	for j := 1; j <= d; j++ {
 		currentHood := map[string]sequence{}
+
 		for pat := range neighborhood {
 			_, ok := alreadyDone[pat]
 			if ok {
@@ -84,6 +75,9 @@ func IterativeNeighbors(pattern sequence, d int) []sequence {
 			}
 		}
 
+		for key := range currentHood {
+			neighborhood[key] = currentHood[key]
+		}
 	}
 
 	all := make([]sequence, len(neighborhood))
@@ -161,7 +155,6 @@ func Neighbors(dna sequence, distance int) []sequence {
 				stop := start + dnaLen
 				res := start / dnaLen
 
-				log.Printf("start=%v stop=%v res=%v\n", start, stop, res)
 				current := results[start:stop]
 				for j := uint(0); j < d; j++ {
 					current[j] = current[j] + byte(bp) + 1

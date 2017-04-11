@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"sort"
 	"testing"
 
@@ -18,7 +17,7 @@ func TestNeighborsSimple(t *testing.T) {
 	expected := []string{"ACA", "ACC", "AAG", "ACG", "CCG", "GCG", "TCG", "AGG", "ATG", "ACT"}
 	sequenceList := sequences(NeighborsSimple(NormalizeDNA("ACG"), 1))
 
-	dnaStrains := sequenceList.Denormalize()
+	dnaStrains := sequenceList.DeNormalize()
 	sort.Strings(dnaStrains)
 	sort.Strings(expected)
 
@@ -29,22 +28,33 @@ func TestIterativeNeighbors(t *testing.T) {
 	expected := []string{"ACA", "ACC", "AAG", "ACG", "CCG", "GCG", "TCG", "AGG", "ATG", "ACT"}
 	sequenceList := sequences(IterativeNeighbors(NormalizeDNA("ACG"), 1))
 
-	dnaStrains := sequenceList.Denormalize()
+	dnaStrains := sequenceList.DeNormalize()
 	sort.Strings(dnaStrains)
 	sort.Strings(expected)
 
 	assert.Equal(t, expected, dnaStrains)
 }
 
-func TestNeighborsSimpleLonger(t *testing.T) {
-	sequenceList := sequences(NeighborsSimple(NormalizeDNA("TCGGCTTA"), 2))
+func TestIterativeNeighbors2Longer(t *testing.T) {
+	sequenceList := sequences(IterativeNeighbors(NormalizeDNA("TCGGCTTA"), 3))
 
-	dnaStrains := sequenceList.Denormalize()
+	dnaStrains := sequenceList.DeNormalize()
 	assert.Equal(t, []string{"ACA", "ACC", "AAG", "ACG", "CCG", "GCG", "TCG", "AGG", "ATG", "ACT"}, dnaStrains)
 
-	for i := range dnaStrains {
-		fmt.Println(dnaStrains[i])
-	}
+	//for i := range dnaStrains {
+	//	fmt.Println(dnaStrains[i])
+	//}
+}
+
+func TestNeighborsSimpleLonger(t *testing.T) {
+	sequenceList := sequences(NeighborsSimple(NormalizeDNA("TCGGCTTA"), 3))
+
+	dnaStrains := sequenceList.DeNormalize()
+	assert.Equal(t, []string{"ACA", "ACC", "AAG", "ACG", "CCG", "GCG", "TCG", "AGG", "ATG", "ACT"}, dnaStrains)
+
+	//for i := range dnaStrains {
+	//	fmt.Println(dnaStrains[i])
+	//}
 }
 
 func TestHammingDistance(t *testing.T) {

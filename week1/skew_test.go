@@ -63,3 +63,29 @@ func TestSkewPlot(t *testing.T) {
 		panic(err)
 	}
 }
+
+func TestSkewPlot16S(t *testing.T) {
+	fasta, err := ReadFasta("fasta/16_S3.fasta")
+	if err != nil {
+		panic(err)
+	}
+	dna := string(fasta.Genome())
+
+	_, err = SkewPlot("16_S3: "+fasta.Raw(), "16_S3.png", dna)
+	if err != nil {
+		panic(err)
+	}
+}
+
+func TestSkewPlotThermotoga(t *testing.T) {
+	data, err := ioutil.ReadFile("Thermotoga-petrophila.txt")
+	if err != nil {
+		panic(err)
+	}
+	dna := string(data)
+
+	_, err = SkewPlot("Thermotoga", "thermotoga_plot.png", dna)
+	if err != nil {
+		panic(err)
+	}
+}

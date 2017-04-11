@@ -173,6 +173,16 @@ func NormalizeDNA(dna string) []byte {
 	return buf
 }
 
+func NormalizeListDNA(dna []string) sequences {
+	norm := make(sequences, len(dna), len(dna))
+
+	for i := 0; i < len(dna); i++ {
+		norm[i] = NormalizeDNA(dna[i])
+	}
+
+	return norm
+}
+
 // DeNormalizeDNA takes a byteslice of normalized DNA and returns it as upper case ACTG string
 func DeNormalizeDNA(dnaData []byte) string {
 	dnaLen := len(dnaData)
@@ -225,7 +235,7 @@ func IndexToPatternStr(k, index int) string {
 	return string(buf)
 }
 
-func IndexToPattern(k, index int) []byte {
+func IndexToPattern(k, index int) sequence {
 	// convert to base4
 	data := []byte(strconv.FormatInt(int64(index), 4))
 

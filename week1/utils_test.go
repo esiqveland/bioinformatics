@@ -1,10 +1,19 @@
 package main
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 )
+
+func TestReadFasta(t *testing.T) {
+	fasta, err := ReadFasta("Salmonella_enterica.txt")
+	assert.NoError(t, err)
+
+	fmt.Println(fasta.Raw())
+	//fmt.Println(fasta.Genome())
+}
 
 func TestNormalizeDNA(t *testing.T) {
 	assert.Equal(t, []byte{0}, NormalizeDNA("A"))
